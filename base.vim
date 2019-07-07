@@ -104,10 +104,10 @@ let g:molokai_original = 1
 colorscheme gruvbox
 
 map <C-p> :FZF<CR>
-map <C-i> :TagbarToggle<CR>
 map <C-f> :Find 
-map <C-n> :tabnew 
+map <C-t><C-n> :tabnew 
 map tt :NERDTreeToggle<CR>
+imap <S-Tab> <Esc>
 
 command CargoBuild execute "!cargo build"
 command CargoRun execute "!cargo run"
