@@ -115,6 +115,9 @@ command RustFmt execute "silent !rustfmt %" | execute 'redraw!'
 
 command -nargs=+ Replace :call MyReplace(<f-args>)
 
+" Markdown preview
+autocmd BufEnter *.md exe 'nnoremap <C-m><C-p> :silent update<Bar>silent !open -a Google\ Chrome %:p &<CR> :redraw!<CR>'
+
 function MyReplace(before, after)
     :execute ",$s/".a:before."/".a:after."/gc|1,''-&&"
 endfunction
