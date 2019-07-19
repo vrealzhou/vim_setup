@@ -62,6 +62,9 @@ autocmd Filetype go setlocal tabstop=4
 autocmd Filetype go setlocal shiftwidth=4
 
 call plug#begin('~/.vim/plugged')
+"Rust
+Plug 'rust-lang/rust.vim'
+
 " Golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
