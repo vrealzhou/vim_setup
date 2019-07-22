@@ -72,8 +72,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'rust-lang/rust.vim'
 
 " Golang
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " GraphQL
 Plug 'jparise/vim-graphql'
@@ -112,8 +111,8 @@ call plug#end()
 " Language server
 " Required for operations modifying multiple buffers like rename.
 set hidden
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
+" let g:go_def_mode='gopls'
+" let g:go_info_mode='gopls'
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
@@ -127,6 +126,7 @@ nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> rn :call LanguageClient#textDocument_rename()<CR>
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
 
 let g:rehash256 = 1
 let g:molokai_original = 1
