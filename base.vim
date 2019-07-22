@@ -69,7 +69,9 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 
 "Rust
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
+
+Plug 'mattn/webapi-vim'
 
 " Golang
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -111,11 +113,9 @@ call plug#end()
 " Language server
 " Required for operations modifying multiple buffers like rename.
 set hidden
-" let g:go_def_mode='gopls'
-" let g:go_info_mode='gopls'
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ 'python': ['/usr/local/bin/pyls'],
@@ -139,9 +139,7 @@ map tt :NERDTreeToggle<CR>
 imap <S-Tab> <Esc>
 nmap <C-t><C-b> :TagbarToggle<CR>
 
-command CargoBuild execute "!cargo build"
-command CargoRun execute "!cargo run"
-command RustFmt execute "silent !rustfmt %" | execute 'redraw!'
+let g:rust_clip_command = 'pbcopy'
 
 command -nargs=+ Replace :call MyReplace(<f-args>)
 
