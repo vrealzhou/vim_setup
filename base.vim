@@ -62,8 +62,15 @@ autocmd Filetype go setlocal tabstop=4
 autocmd Filetype go setlocal shiftwidth=4
 
 call plug#begin('~/.vim/plugged')
+"Language server
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
 " Golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 
 " GraphQL
 Plug 'jparise/vim-graphql'
@@ -99,6 +106,25 @@ Plug 'jremmen/vim-ripgrep'
 
 call plug#end()
 
+" Language server
+" Required for operations modifying multiple buffers like rename.
+set hidden
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'go': ['gopls'],
+    \ }
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> rn :call LanguageClient#textDocument_rename()<CR>
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
 let g:rehash256 = 1
 let g:molokai_original = 1
 colorscheme gruvbox
@@ -108,6 +134,7 @@ map <C-f> :Find
 map <C-t><C-n> :tabnew 
 map tt :NERDTreeToggle<CR>
 imap <S-Tab> <Esc>
+nmap <C-t><C-b> :TagbarToggle<CR>
 
 command CargoBuild execute "!cargo build"
 command CargoRun execute "!cargo run"
