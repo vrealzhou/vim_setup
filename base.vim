@@ -68,6 +68,9 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
+"Rust
+Plug 'rust-lang/rust.vim'
+
 " Golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
