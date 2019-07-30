@@ -34,8 +34,6 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
-let g:go_fmt_command = "goimports"
-
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
 
@@ -63,13 +61,7 @@ autocmd Filetype go setlocal shiftwidth=4
 
 call plug#begin('~/.vim/plugged')
 "Language server
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-"Rust
-" Plug 'rust-lang/rust.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'mattn/webapi-vim'
 
@@ -114,19 +106,14 @@ call plug#end()
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ 'go': ['gopls'],
-    \ }
-
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> rn :call LanguageClient#textDocument_rename()<CR>
-autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
-autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
+" coc config
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd BufWritePre *.rs :call CocAction('runCommand', 'editor.action.organizeImport')
 
 let g:rehash256 = 1
 let g:molokai_original = 1
