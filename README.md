@@ -6,17 +6,17 @@
   
   ```
   {
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
-    },
-    "rust": {
-      "command": "ra_lsp_server",
-      "filetypes": ["rust"],
-      "rootPatterns": ["Cargo.toml"]
+    "languageserver": {
+      "golang": {
+        "command": "gopls",
+        "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+        "filetypes": ["go"]
+      },
+      "rust": {
+        "command": "ra_lsp_server",
+        "filetypes": ["rust"],
+        "rootPatterns": ["Cargo.toml"]
+      }
     }
   }
-}
-```
+  ```
