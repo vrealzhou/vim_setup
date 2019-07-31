@@ -70,11 +70,6 @@ Plug 'mattn/webapi-vim'
 
 " GraphQL
 Plug 'jparise/vim-graphql'
-" Completor
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
-Plug 'maralla/completor.vim'
-Plug 'masawada/completor-dictionary'
-Plug 'ferreum/completor-tmux'
 
 Plug 'majutsushi/tagbar'
 Plug 'itchyny/lightline.vim'
@@ -85,10 +80,6 @@ Plug 'SirVer/ultisnips'
 
 " Tree
 Plug 'scrooloose/nerdtree'
-
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
 
 " Colors
 Plug 'fatih/molokai'
@@ -111,7 +102,17 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [\ :lprev<CR>
+nmap <silent> ]\ :lnext<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap gc <Plug>(coc-git-commit)
+autocmd User CocGitStatusChange {command}
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 " autocmd BufWritePre *.rs :call CocAction('runCommand', 'editor.action.organizeImport')
 
@@ -156,10 +157,29 @@ set noshowmode
 let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \   'left': [ 
+      \     [ 'mode', 'paste' ],
+      \     [ 'ctrlpmark', 'git', 'diagnostic', 'cocstatus', 'filename', 'method' ]
+      \   ],
+      \   'right':[
+      \     [ 'filetype', 'fileencoding', 'lineinfo', 'percent' ],
+      \     [ 'blame' ]
+      \   ],
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'blame': 'LightlineGitBlame',
+      \   'cocstatus': 'LightlineGitStatus'
       \ },
-      \ }
+      \}
+
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
+
+function! LightlineGitStatus() abort
+  let status = get(g:, 'coc_git_status', '')
+  " return status
+  return winwidth(0) > 120 ? status : ''
+endfunction

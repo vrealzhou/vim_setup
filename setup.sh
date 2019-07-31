@@ -3,4 +3,4 @@ sudo npm i -g bash-language-server
 if [ ! -f ~/.vim/coc-settings.json ]; then
 	ln -s coc-settings.json ~/.vim/coc-settings.json
 fi
-vim +PlugInstall +"CocInstall coc-json coc-rls" +qall!
+vim +PlugInstall +"CocInstall coc-json coc-rls coc-yaml coc-git" +qall!
