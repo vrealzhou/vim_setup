@@ -116,6 +116,9 @@ autocmd User CocGitStatusChange {command}
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 " autocmd BufWritePre *.rs :call CocAction('runCommand', 'editor.action.organizeImport')
 
+" Json
+autocmd BufWritePre *.json :%!python -m json.tool
+
 let g:rehash256 = 1
 let g:molokai_original = 1
 colorscheme gruvbox
