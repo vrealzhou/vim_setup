@@ -65,8 +65,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'mattn/webapi-vim'
 
-" Golang
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Toml
+Plug 'cespare/vim-toml'
 
 " GraphQL
 Plug 'jparise/vim-graphql'
